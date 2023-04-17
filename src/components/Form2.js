@@ -3,11 +3,9 @@ import React, { useState } from "react";
 
 
 function Form2(props) {
-    const [text, setText] = useState("");
+    const [text, setText] = useState("Text");
 
     const handleUpClick = () => {
-        console.log("Hello");
-
         let newText = text.toUpperCase();
         setText(newText);
     }
@@ -24,14 +22,43 @@ function Form2(props) {
         setText(tcText);
     }
 
-    const handleCClick = () => {
+    const handleRvClick = () => {
+        let rvText = text.split('').reverse().join('');
+        setText(rvText);
+    }
 
-        navigator.clipboard.writeText(text);
-        alert("Copied the text: " + text);
+    const handleRwClick = () => {
+
+        let repval=prompt("Enter the word to be replaced:")
+        let tobereplaced= new RegExp(repval,'g');
+
+        let toreplace=prompt("Enter the text that you want to replace with:");
+
+        let rwText = text.replace(tobereplaced,toreplace);
+        setText(rwText);
+    }
+
+    const handleResClick = () => {
+        let resText = text.replace(/\s+/g,' ').trim();
+        setText(resText);
+    }
+
+    const handleCClick = () => {
+        let textarea = document.getElementById("textarea");
+        textarea.select();
+        // textarea.setSelectionRange(0,9999);
+        navigator.clipboard.writeText(textarea.value);
+        alert("Copied the text: " + textarea.value);
     }
     
     const handleCtClick = () => {
         setText("");
+    }
+
+    const handleSpClick = () => {
+        let msg = new SpeechSynthesisUtterance();
+        msg.text = text;
+        window.speechSynthesis.speak(msg);
     }
     
     const handleChange = (e) => {
@@ -42,21 +69,34 @@ function Form2(props) {
     <>
     <div className="container my-4">
       <div className="mb-3">
-        <label htmlFor="exampleFormControlTextarea1" className="form-label">
-          {props.heading}
-        </label>
+        <h1>{props.heading}</h1>
+          
         <textarea
           className="form-control"
-          id="exampleFormControlTextarea1"
+          id="textarea"
           rows="7" value={text} onChange={handleChange}
         ></textarea>
       </div>
 
       <button className="btn btn-primary" onClick={handleUpClick}>Convert to Uppercase</button>
-      <button className="btn btn-primary mx-3" onClick={handleLwClick}>Convert to Lowercase</button>
-      <button className="btn btn-primary mx-3" onClick={handleTcClick}>Convert to Titlecase</button>
-      <button className="btn btn-primary mx-3" onClick={handleCClick}>Copy Text</button>
-      <button className="btn btn-primary mx-3" onClick={handleCtClick}>Clear Text</button>
+      <button className="btn btn-primary mx-3 my-3" onClick={handleLwClick}>Convert to Lowercase</button>
+      <button className="btn btn-primary mx-3 my-3" onClick={handleTcClick}>Convert to Titlecase</button>
+      <button className="btn btn-primary mx-3 my-3" onClick={handleRvClick}>Reverse Text</button>
+      <button className="btn btn-primary mx-3 my-3" onClick={handleRwClick}>Replace Word</button>
+      <button className="btn btn-primary mx-3 my-3" onClick={handleResClick}>Remove Extra Space</button>
+      <button className="btn btn-primary mx-3 my-3" onClick={handleCClick}>Copy Text</button>
+      <button className="btn btn-primary mx-3 my-3" onClick={handleCtClick}>Clear Text</button>
+      <button className="btn btn-primary mx-3 my-3" onClick={handleSpClick}>Speak</button>
+    </div>
+
+
+    <div className="container my-4">
+        <h2>Your Summary</h2>
+        <p>{text == ""? "0" : text.trim().split(" ").length} Words, {text.length} Characters</p>
+        <p>{text == ""? "0" : 0.08 * text.trim().split(" ").length} Minutes Read</p>
+
+        <h3 className="my-4">Preview</h3>
+        <p>{text}</p>
     </div>
     </>
   );
