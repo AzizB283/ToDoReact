@@ -10,8 +10,8 @@ function Count() {
 
   return (
     <>
-      <center>
-        <button onClick={btnClick} className="btn">
+      <center className="my-4">
+        <button onClick={btnClick}  className="btn btn-primary">
           Click Here
         </button>
         <br /><br />

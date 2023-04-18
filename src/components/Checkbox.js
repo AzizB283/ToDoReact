@@ -8,6 +8,8 @@ function CheckBox() {
 
   return (
     <>
+    <div className="container">
+
       <h1>Checkbox</h1>
 
       <label htmlFor="">
@@ -16,6 +18,7 @@ function CheckBox() {
       </label>
 
       <p>You {liked ? "liked" : "did not liked"} this.</p>
+    </div>
     </>
   );
 }

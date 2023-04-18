@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 
 function Form2(props) {
-    const [text, setText] = useState("Text");
+    const [text, setText] = useState("");
 
     const handleUpClick = () => {
         let newText = text.toUpperCase();
@@ -78,22 +78,22 @@ function Form2(props) {
         ></textarea>
       </div>
 
-      <button className="btn btn-primary" onClick={handleUpClick}>Convert to Uppercase</button>
-      <button className="btn btn-primary mx-3 my-3" onClick={handleLwClick}>Convert to Lowercase</button>
-      <button className="btn btn-primary mx-3 my-3" onClick={handleTcClick}>Convert to Titlecase</button>
-      <button className="btn btn-primary mx-3 my-3" onClick={handleRvClick}>Reverse Text</button>
-      <button className="btn btn-primary mx-3 my-3" onClick={handleRwClick}>Replace Word</button>
-      <button className="btn btn-primary mx-3 my-3" onClick={handleResClick}>Remove Extra Space</button>
-      <button className="btn btn-primary mx-3 my-3" onClick={handleCClick}>Copy Text</button>
-      <button className="btn btn-primary mx-3 my-3" onClick={handleCtClick}>Clear Text</button>
-      <button className="btn btn-primary mx-3 my-3" onClick={handleSpClick}>Speak</button>
+      <button disabled={text.length === 0} className="btn btn-primary" onClick={handleUpClick}>Convert to Uppercase</button>
+      <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleLwClick}>Convert to Lowercase</button>
+      <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleTcClick}>Convert to Titlecase</button>
+      <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleRvClick}>Reverse Text</button>
+      <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleRwClick}>Replace Word</button>
+      <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleResClick}>Remove Extra Space</button>
+      <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleCClick}>Copy Text</button>
+      <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleCtClick}>Clear Text</button>
+      <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleSpClick}>Speak</button>
     </div>
 
 
     <div className="container my-4">
         <h2>Your Summary</h2>
-        <p>{text == ""? "0" : text.trim().split(" ").length} Words, {text.length} Characters</p>
-        <p>{text == ""? "0" : 0.08 * text.trim().split(" ").length} Minutes Read</p>
+        <p>{text.split(" ").filter((element)=>{return element.length !== 0}).length} Words, {text.length} Characters</p>
+        <p>{0.08 * text.split(" ").filter((element)=>{return element.length !== 0}).length} Minutes Read</p>
 
         <h3 className="my-4">Preview</h3>
         <p>{text}</p>
